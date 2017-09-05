@@ -5,6 +5,7 @@ from PIL import Image
 imagesPath = os.path.join("..", "images")
 annoFilePath = os.path.join("..", "annotations")
 fragmentsFilePath = os.path.join("..", "fragments")
+fragmentsGrayFilePath = os.path.join("..", "fragments_greyscale")
 
 partFileNameList = ["person_292", "person_and_bike_125", "person_and_bike_132"]
 
@@ -24,5 +25,14 @@ def task0_crop():
             imageCropped.save(os.path.join(fragmentsFilePath, partFileName + "_" + str(i) + os.extsep + "png"))
 
 
+def task1_grayscale():
+    for fileName in os.listdir(fragmentsFilePath):
+        name, ext = os.path.splitext(fileName)
+        if ext == ".png":
+            image = Image.open(os.path.join(fragmentsFilePath, fileName)).convert('L')
+            image.save(os.path.join(fragmentsGrayFilePath, name + "_gray" + os.extsep + "png"))
+
+
 task0_crop()
+task1_grayscale()
 
